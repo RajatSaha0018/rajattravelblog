@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Page scrolling function for the nav-links
+            document.querySelectorAll(".nav-link").forEach(function (navLink) {
+                navLink.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute("href").substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: "smooth",
+                        });
+                    }
+                });
+            });
+
+            // Back to Top Link
+            const topLink = document.querySelector(".top-link");
+            if (topLink) {
+                topLink.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const topSection = document.getElementById("topSection");
+                    if (topSection) {
+                        window.scrollTo({
+                            top: topSection.offsetTop,
+                            behavior: "smooth",
+                        });
+                    }
+                });
+            }
+
+            // Function to change the nav-bar on scrollhttp://127.0.0.1:5500/blog1/index.html#
+            window.addEventListener("scroll", function () {
+                const navBar = document.querySelector(".nav-bar");
+                if (navBar) {
+                    if (window.scrollY >= 110) {
+                        navBar.classList.add("scrolled");
+                    } else {
+                        navBar.classList.remove("scrolled");
+                    }
+                }
+            });
+
+            // Setting the active nav-link based on the scroll position
+            const sections = [
+                "contactSection",
+                "priceSection",
+                "servicesSection",
+                "teamSection",
+                "portfolioSection",
+                "aboutSection",
+                "topSection",
+            ];
+
+            const navLinks = document.querySelectorAll(".nav-link");
+
+            window.addEventListener("scroll", function () {
+                sections.forEach(function (sectionId, index) {
+                    const section = document.getElementById(sectionId);
+                    if (section) {
+                        const sectionTop = section.offsetTop;
+                        const sectionHeight = section.offsetHeight;
+                        const halfWindowHeight = window.innerHeight / 2;
+
+                        if (
+                            window.scrollY >= sectionTop - halfWindowHeight &&
+                            window.scrollY < sectionTop + sectionHeight - halfWindowHeight
+                        ) {
+                            navLinks.forEach((link) => link.classList.remove("active"));
+                            navLinks[index]?.classList.add("active");
+                        }
+                    }
+                });
+            });
+        });
+
+        // faq section
+
+
+    </script>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Montserrat:700);
+        @import url(https://fonts.googleapis.com/css?family=Orbitron:700);
+        @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500);
+
+        a {
+            text-decoration: none;
+        }
+
+        * {
+            transition: 0.4s ease;
+        }
+
+        body {
+            overflow-x: hidden;
+            font-family: "Roboto";
+            font-size: 14px;
+            line-height: 18px;
+            letter-spacing: 2px;
+            font-weight: 400;
+            margin: 0px;
+            scrollbar-width: none;
+
+        }
+
+        .rela-block {
+            display: block;
+            position: relative;
+            text-align: center;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .floated {
+            position: relative;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .floated.left {
+            float: left;
+        }
+
+        .floated.right {
+            float: right;
+        }
+
+        .abs-cent-text {
+            position: absolute;
+            width: 90%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .orbitron {
+            display: inline-block;
+            position: relative;
+            font-family: "Orbitron";
+            font-size: 20px;
+            letter-spacing: 0px;
+            line-height: 32px;
+            margin-bottom: 60px;
+        }
+
+        .orbitron::before,
+        .orbitron::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 60%;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: white;
+        }
+
+        .orbitron::before {
+            left: -65%;
+        }
+
+        .orbitron::after {
+            right: -63%;
+        }
+
+        .orbitron.black-orb::before,
+        .orbitron.black-orb::after {
+            background-color: black;
+        }
+
+        /* navigation bar start */
+        .nav-bar {
+            position: fixed;
+            z-index: 100;
+            height: 110px;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 0 6%;
+        }
+
+        .nav-bar.scrolled {
+            height: 80px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .nav-logo {
+            position: absolute;
+            top: 50%;
+            left: 6%;
+            transform: translateY(-50%);
+            font-family: "Montserrat";
+            font-size: 24px;
+            letter-spacing: 0px;
+            color: white;
+            transition: 0.4s ease;
+            cursor: pointer;
+        }
+
+        .nav-links-container {
+            position: absolute;
+            top: 50%;
+            right: 6%;
+            transform: translateY(-50%);
+        }
+
+        .nav-link {
+            color: #999;
+            font-size: 13px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-weight: 500;
+            padding: 0 12px;
+            transition: 0.4s ease;
+        }
+
+        .nav-link.active,
+        .nav-link:hover {
+            color: white;
+        }
+
+        /* navigation bar end */
+        /* background */
+        .top-section {
+            height: 100vh;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/archive/e/e1/20141028134401%21Icefields%282013.07.16%29byRyanSchroeder.jpg') no-repeat center;
+            background-size: cover;
+        }
+
+        .grad-back::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(transparent, rgba(0, 0, 0, 0.9));
+        }
+
+        .top-text {
+            color: white;
+            top: 58%;
+            line-height: 28px;
+        }
+
+        .top-small-text {
+            font-size: 17px;
+            line-height: 24px;
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+
+        .big-text {
+            font-family: "Montserrat";
+            text-transform: uppercase;
+            font-size: 58px;
+            line-height: 72px;
+            letter-spacing: 20px;
+            margin-bottom: 60px;
+        }
+
+        .half-big-text {
+            font-family: "Montserrat";
+            text-transform: uppercase;
+            font-size: 30px;
+            line-height: 48px;
+            letter-spacing: 12px;
+            margin-bottom: 45px;
+        }
+
+        .half-big-text.has-border {
+            display: inline-block;
+            position: relative;
+            margin: 0 auto 50px;
+            padding: 15px 45px;
+            border: 10px solid;
+        }
+
+        .under-top-section {
+            color: white;
+            background-color: #1D1D1D;
+            text-align: left;
+            padding: 0 6%;
+        }
+
+        .under-top-big-text {
+            margin-top: 80px;
+        }
+
+        .under-top-small-text {
+            width: 84%;
+            max-width: 580px;
+            margin-bottom: 50px;
+        }
+
+        .lines-thing {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 45px;
+            height: 2px;
+            width: 80px;
+            background-color: white;
+        }
+
+        .lines-thing::before,
+        .lines-thing::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 25px;
+            background-color: white;
+        }
+
+        .lines-thing::before {
+            top: -12px;
+        }
+
+        .lines-thing::after {
+            bottom: -12px;
+        }
+
+        .lines-thing.black {
+            background-color: black;
+        }
+
+        .lines-thing.black::before,
+        .lines-thing.black::after {
+            background-color: black;
+        }
+
+        .has-lines {
+            display: inline-block;
+            position: relative;
+            text-transform: uppercase;
+            padding: 13px 45px;
+            border-left: 2px solid;
+            border-right: 2px solid;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin: 10px;
+        }
+
+        .has-lines::before,
+        .has-lines::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            left: 45px;
+            right: 45px;
+            transition: 0.2s ease;
+        }
+
+        .has-lines::before {
+            top: 0;
+        }
+
+        .has-lines::after {
+            bottom: 0;
+        }
+
+        .has-lines.white:hover::before,
+        .has-lines.white:hover::after {
+            background-color: white;
+        }
+
+        .has-lines.black:hover::before,
+        .has-lines.black:hover::after {
+            background-color: black;
+        }
+
+        .has-lines:hover::before {
+            top: 8px;
+        }
+
+        .has-lines:hover::after {
+            bottom: 10px;
+        }
+
+        /* background and home section end */
+        /* this is blog section */
+        .about-us-section {
+            padding: 50px 0 80px;
+        }
+
+        .about-us-section>p {
+            display: block;
+            position: relative;
+            width: 65%;
+            margin: 30px auto 120px;
+        }
+
+        .about-us-section .orbitron {
+            margin-bottom: 100px;
+        }
+
+        .about-us-quad-container,
+        .about-us-bottom-container {
+            width: 85%;
+            max-width: 1100px;
+            margin: 0 auto 100px;
+        }
+
+        /* cards section blog*/
+        .cr1 {
+            z-index: 2;
+            color: #000000e3;
+            /* background-color: aquamarine; */
+            width: auto;
+            height: auto;
+            max-width: fit-content;
+            /* max-height: 2400px; */
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 1vh;
+        }
+
+        .cr2 {
+            z-index: 2;
+            color: #000000;
+            /* background-color: aquamarine; */
+            width: auto;
+            height: auto;
+            max-width: fit-content;
+            /* max-height: 2400px; */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+
+        .cards {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            /* Allows cards to wrap on smaller screens */
+            justify-content: center;
+            max-width: 1600px;
+            gap: 20px;
+            /* Space between cards */
+            padding: 20px;
+            /* Padding around the card container */
+            box-sizing: border-box;
+            /* Includes padding in width/height */
+        }
+
+        .card {
+            flex: 1 1 calc(33.333% - 40px);
+            /* 3 cards per row, adjust for gap */
+            max-width: calc(33.333% - 40px);
+            min-width: 250px;
+            /* Ensures cards don't get too small */
+            transition: all 0.4s ease;
+            /* Smooth scaling effect */
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card__img,
+        .card__img--hover {
+            height: 200px;
+        }
+
+        @media (max-width: 1024px) {
+            .card {
+                flex: 1 1 calc(50% - 40px);
+                /* 2 cards per row on medium screens */
+                max-width: calc(50% - 40px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                flex: 1 1 calc(100% - 40px);
+                /* 1 card per row on smaller screens */
+                max-width: calc(100% - 40px);
+            }
+
+            .card__img,
+            .card__img--hover {
+                height: 150px;
+                /* Adjust height for smaller screens */
+            }
+        }
+
+        .card--1 .card__img,
+        .card--1 .card__img--hover {
+            background-image: url('https://images.pexels.com/photos/208701/pexels-photo-208701.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+        }
+
+        .card--2 .card__img,
+        .card--2 .card__img--hover {
+            background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+
+        .card--3 .card__img,
+        .card--3 .card__img--hover {
+            background-image: url('https://images.unsplash.com/photo-1529260830199-42c24126f198?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+
+        .card--4 .card__img,
+        .card--4 .card__img--hover {
+            background-image: url('https://images.unsplash.com/photo-1565967511849-76a60a516170?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+
+        .card--5 .card__img,
+        .card--5 .card__img--hover {
+            background-image: url('https://images.unsplash.com/photo-1550503736-c1a2c9033c03?q=80&w=2081&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+
+        .card--6 .card__img,
+        .card--6 .card__img--hover {
+            background-image: url('https://images.pexels.com/photos/3307194/pexels-photo-3307194.jpeg?auto=compress&cs=tinysrgb&w=400');
+        }
+
+        .card--7 .card__img,
+        .card--7 .card__img--hover {
+            background-image: url('https://plus.unsplash.com/premium_photo-1661964177687-57387c2cbd14?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+
+        .card--8 .card__img,
+        .card--8 .card__img--hover {
+            background-image: url('https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+
+        .card--9 .card__img,
+        .card--9 .card__img--hover {
+            background-image: url('https://images.unsplash.com/photo-1584772121849-56c717d6c542?q=80&w=2047&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+
+        .card--10 .card__img,
+        .card--10 .card__img--hover {
+            background-image: url('https://images.unsplash.com/photo-1580674684081-7617fbf3d745?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+
+        .card__like {
+            width: 18px;
+        }
+
+
+        .card__img {
+            visibility: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 200px;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+
+        }
+
+        .card__info-hover {
+            position: absolute;
+            padding: 16px;
+            width: 100%;
+            opacity: 0;
+            top: 0;
+        }
+
+        .card__img--hover {
+            transition: 0.2s all ease-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            position: absolute;
+            height: 235px;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            top: 0;
+
+        }
+
+        .card {
+            margin-right: 25px;
+            transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
+            background-color: #fff;
+            width: 33.3%;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
+            transform: scale(1.10, 1.10);
+        }
+
+        .card__info {
+            z-index: 2;
+            background-color: #fff;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            padding: 16px 24px 24px 24px;
+        }
+
+        .card__category {
+            font-family: 'Raleway', sans-serif;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: 500;
+            color: #868686;
+        }
+
+        .card__title {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-family: 'Roboto Slab', serif;
+        }
+
+        .card__by {
+            font-size: 12px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 500;
+        }
+
+        .card__author {
+            font-weight: 600;
+            text-decoration: none;
+            color: #AD7D52;
+        }
+
+        .card:hover .card__img--hover {
+            height: 100%;
+            opacity: 0.3;
+        }
+
+        .card:hover .card__info {
+            background-color: transparent;
+            position: relative;
+        }
+
+        .card:hover .card__info-hover {
+            opacity: 1;
+        }
+
+        /* cards and blog section ends */
+
+        /* faq section starts */
+        .our-plans-section {
+            background-color: #F4F4F4;
+            padding: 50px 0 50px;
+        }
+
+        .our-plans-section>p {
+            position: relative;
+            width: 65%;
+            margin: 0 auto 120px;
+        }
+
+        .our-plans-section .orbitron {
+            margin-bottom: 80px;
+        }
+
+
+        .faq {
+            font-family: "Roboto";
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+            display: flex;
+            flex-wrap: wrap;
+            /* Allows cards to wrap on smaller screens */
+            justify-content: center;
+            gap: 20px;
+            /* Space between cards */
+            padding: 20px;
+            /* Padding around the card container */
+            box-sizing: border-box;
+            /* Includes padding in width/height */
+            padding: 0px;
+        }
+
+        .wrapper {
+            width: 100%;
+        }
+
+        .container {
+            background-color: white;
+            color: black;
+            border-radius: 20px;
+            box-shadow: 0 5px 10px 0 rgb(0, 0, 0, 0.25);
+            margin: 20px 0;
+        }
+
+        .question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 20px 80px 20px 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .question::after {
+            content: "\002B";
+            font-size: 2.2rem;
+            position: absolute;
+            right: 20px;
+            transition: 0.2s;
+        }
+
+        .question.active::after {
+            transform: rotate(45deg);
+        }
+
+        .answercont {
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .answer {
+            padding: 0 20px 20px;
+            line-height: 1.5rem;
+        }
+
+        @media screen and (max-width: 790px) {
+            html {
+                font-size: 14px;
+            }
+
+            .wrapper {
+                width: 100%;
+            }
+        }
+
+        /* faq sectino end */
+
+        /* contact and social part start */
+
+        .contact-section {
+            padding: 50px 0 120px;
+        }
+
+        .contact-section>p {
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto 120px;
+        }
+
+        .contact-form-container {
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .contact-half {
+            display: inline-block;
+            position: relative;
+            width: 48%;
+            vertical-align: top;
+            margin: 0 0.5% 40px;
+        }
+
+        .contact-half .small-header {
+            font-size: 14px;
+            margin: 20px auto;
+            letter-spacing: 2px;
+        }
+
+        .contact-half .submit-button {
+            cursor: pointer;
+        }
+
+        .contact-left {
+            text-align: left;
+        }
+
+        .contact-left .small-header {
+            text-transform: none;
+            letter-spacing: 1px;
+        }
+
+        .contact-left .social-button {
+            margin: 10px -10px;
+        }
+
+        .contact-left .social-button:hover {
+            transform: scale(0.75);
+        }
+
+        .left-quad-container {
+            margin: 20px auto;
+        }
+
+        .contact-quad {
+            display: inline-block;
+            width: 48%;
+            box-sizing: border-box;
+            vertical-align: top;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .contact-input {
+            width: 85%;
+            margin: 8px auto;
+            font-family: "Montserrat";
+            font-size: 12px;
+            line-height: 18px;
+            padding: 10px;
+            border: 5px solid;
+            text-align: left;
+        }
+
+        .contact-input.big-input {
+            height: 140px;
+            border-top: transparent;
+            border-right: transparent;
+        }
+
+        .contact-input:focus {
+            outline: none;
+        }
+
+        /* contact ends */
+        /* the footer parts here */
+        .footer-section {
+            padding: 75px 0;
+            background: black;
+            color: white;
+        }
+
+        .footer-section .small-header {
+            margin-bottom: 20px;
+        }
+
+        .footer-section .top-link {
+            cursor: pointer;
+        }
+
+        .social-buttons-container {
+            min-height: 100px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 20px;
+            text-align: center;
+        }
+
+        .social-button {
+            display: inline-block;
+            position: relative;
+            transform: scale(0.75);
+            height: 75px;
+            width: 75px;
+            background-size: cover !important;
+            transition: 0.3s ease;
+            margin: 14px 2px;
+            cursor: pointer;
+        }
+
+        .social-button:hover {
+            transform: scale(1);
+            transition: 0.3s cubic-bezier(0.3, 0.2, 0, 2.5);
+        }
+
+        .social-button.twitter-button {
+            background: url("https://cdn4.iconfinder.com/data/icons/liu-square-blac/60/twitter-square-social-media-256.png") no-repeat center;
+        }
+
+        .social-button.facebook-button {
+            background: url("https://cdn4.iconfinder.com/data/icons/liu-square-blac/60/facebook-square-social-media-256.png") no-repeat center;
+        }
+
+        .social-button.instagram-button {
+            background: url("https://cdn4.iconfinder.com/data/icons/liu-square-blac/60/instagram-square-social-media-256.png") no-repeat center;
+        }
+
+        /* social parts ends */
+
+
+        @media screen and (max-width: 1300px) {
+            .test-left .half-big-text {
+                letter-spacing: 2px;
+                padding: 15px 35px;
+            }
+        }
+
+        @media screen and (max-width: 1100px) {
+            .big-text {
+                font-size: 45px;
+                line-height: 50px;
+                letter-spacing: 14px;
+            }
+
+            .nav-logo {
+                left: 4%;
+            }
+
+            .nav-links-container {
+                right: 4%;
+            }
+
+            .nav-link {
+                padding: 0 6px;
+            }
+
+            .welcome-section {
+                background-size: 800px 580px;
+            }
+
+            .plan {
+                margin: 0px 8px 20px;
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            .nav-bar.scrolled .nav-links-container {
+                top: 30px;
+            }
+
+            .nav-logo {
+                left: 50px;
+            }
+
+            .nav-links-container {
+                width: 140px;
+                text-align: center;
+                top: 40px;
+                transform: none;
+                right: 50px;
+            }
+
+            .nav-links-container:hover .nav-link {
+                transition: 0.4s ease;
+                height: 100%;
+                opacity: 1;
+            }
+
+            .nav-link {
+                display: block;
+                height: 0;
+                opacity: 0;
+                transition: 0s ease;
+            }
+
+            .nav-link.active {
+                height: 100%;
+                opacity: 1;
+            }
+
+            .welcome-text {
+                left: 50%;
+                width: 80%;
+                transform: translate(-50%, -50%);
+            }
+
+            .about-us-section {
+                padding: 160px 0 40px;
+            }
+
+            .quarter-div {
+                height: 50%;
+                width: 50%;
+            }
+
+            .clients-section {
+                height: 480px;
+            }
+
+            .client-part {
+                height: 50%;
+                width: 50%;
+            }
+
+            .client-part:nth-child(1) {
+                width: 50%;
+            }
+
+            .service-row-half {
+                height: 50%;
+                width: 100%;
+            }
+
+            .testimonials-section {
+                height: 600px;
+            }
+
+            .test-left {
+                height: 30%;
+                width: 100%;
+            }
+
+            .test-right {
+                height: 70%;
+                width: 100%;
+            }
+
+            .test-right .space {
+                letter-spacing: 2px;
+                font-size: 14px;
+            }
+
+            .contact-half {
+                width: 100%;
+                margin: 0;
+                text-align: center;
+            }
+        }
+
+        @media screen and (max-width: 700px) {
+
+            .quad-half,
+            .bottom-left-side,
+            .bottom-right-side {
+                padding: 0 0 30px;
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            .big-text {
+                font-size: 36px;
+                line-height: 46px;
+                letter-spacing: 6px;
+                margin-bottom: 22px;
+            }
+
+            .orbitron {
+                margin-bottom: 22px;
+            }
+
+            .about-us-section {
+                padding: 80px 0 0;
+            }
+
+            .portfolio-bottom {
+                height: 450px;
+            }
+
+            .quarter-div {
+                height: 25%;
+                width: 100%;
+            }
+
+            .quarter-div .big-text {
+                margin-bottom: 10px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav-bar">
+        <div class="nav-logo">PHOENIX</div>
+        <div class="nav-links-container">
+            <a class="nav-link active" href="#topSection" id="topLink">Home</a>
+            <a class="nav-link" href="#aboutSection" id="aboutLink">Blogs</a>
+            <a class="nav-link" href="#priceSection" id="priceLink">FAQ</a>
+            <a class="nav-link" href="#contactSection" id="contactLink">Contact</a>
+        </div>
+    </div>
+    <div class="rela-block top-section grad-back" id="topSection">
+        <div class="abs-cent-text top-text">
+            <h1 class="big-text">Welcome</h1>
+            <div class="orbitron top-orb">\\\///</div>
+            <p class="top-small-text">Let's dive into the world of travel blogs</p>
+        </div>
+    </div>
+    <div class="rela-block under-top-section">
+        <div class="half-big-text under-top-big-text">PHOENIX</div>
+        <div class="lines-thing"></div>
+        <p class="under-top-small-text">The world is in the palm of your hand</p>
+    </div>
+    <!-- cards section blog part -->
+    <div class="rela-block about-us-section" id="aboutSection">
+        <h1 class="half-big-text has-border">BLOGS</h2>
+            <div class="cardsop">
+                <div class="cr1">
+                    <div class="test">
+                        <section class="cards">
+                            <article class="card card--1" id="img1">
+                                <div class="card__info-hover">
+                                    <svg class="card__like" viewBox="0 0 24 24">
+                                        <path fill="#000000"
+                                            d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+                                    </svg>
+
+                                </div>
+                                <div class="card__img"></div>
+                                <a href="#" class="card_link">
+                                    <div class="card__img--hover"></div>
+                                </a>
+                                <div class="card__info">
+                                    <span class="card__category"> 3 days</span>
+                                    <h3 class="card__title">Italy</h3>
+                                    <span class="card__by">In <a href="#" class="card__author"
+                                            title="author">Europe</a></span>
+                                </div>
+                            </article>
+                            <article class="card card--2" id="img2">
+                                <div class="card__info-hover">
+                                    <svg class="card__like" viewBox="0 0 24 24">
+                                        <path fill="#000000"
+                                            d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+                                    </svg>
+
+                                </div>
+                                <div class="card__img"></div>
+                                <a href="#" class="card_link">
+                                    <div class="card__img--hover"></div>
+                                </a>
+                                <div class="card__info">
+                                    <span class="card__category"> 2 days</span>
+                                    <h3 class="card__title">France</h3>
+                                    <span class="card__by">In <a href="#" class="card__author"
+                                            title="author">Europe</a></span>
+                                </div>
+                            </article>
+                            <article class="card card--3" id="img3">
+                                <div class="card__info-hover">
+                                    <svg class="card__like" viewBox="0 0 24 24">
+                                        <path fill="#000000"
+                                            d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+                                    </svg>
+
+
+                                </div>
+                                <div class="card__img"></div>
+                                <a href="#" class="card_link">
+                                    <div class="card__img--hover"></div>
+                                </a>
+                                <div class="card__info">
+                                    <span class="card__category"> 3 days</span>
+                                    <h3 class="card__title">Rome</h3>
+                                    <span class="card__by">In <a href="#" class="card__author"
+                                            title="author">Europe</a></span>
+                                </div>
+                            </article>
+                            <article class="card card--4" id="img4">
+                                <div class="card__info-hover">
+                                    <svg class="card__like" viewBox="0 0 24 24">
+                                        <path fill="#000000"
+                                            d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+                                    </svg>
+
+                                </div>
+                                <div class="card__img"></div>
+                                <a href="#" class="card_link">
+                                    <div class="card__img--hover"></div>
+                                </a>
+                                <div class="card__info">
+                                    <span class="card__category"> 5 days</span>
+                                    <h3 class="card__title">Singapore</h3>
+                                    <span class="card__by">In <a href="#" class="card__author"
+                                            title="author">Asia</a></span>
+                                </div>
+                            </article>
+                            <article class="card card--5" id="img5">
+                                <div class="card__info-hover">
+                                    <svg class="card__like" viewBox="0 0 24 24">
+                                        <path fill="#000000"
+                                            d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+                                    </svg>
+
+                                </div>
+                                <div class="card__img"></div>
+                                <a href="#" class="card_link">
+                                    <div class="card__img--hover"></div>
+                                </a>
+                                <div class="card__info">
+                                    <span class="card__category"> 7 Days</span>
+                                    <h3 class="card__title">Switzerland</h3>
+                                    <span class="card__by">In <a href="#" class="card__author"
+                                            title="author">Europe</a></span>
+                                </div>
+                            </article>
+
+                        </section>
+                    </div>
+                </div>
+                <div class="cr2">
+                    <div class="test">
+                        <section class="cards">
+                            <article class="card card--6" id="img6">
+                                <div class="card__info-hover">
+                                    <svg class="card__like" viewBox="0 0 24 24">
+                                        <path fill="#000000"
+                                            d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+                                    </svg>
+
+
+                                </div>
+                                <div class="card__img"></div>
+                                <a href="#" class="card_link">
+                                    <div class="card__img--hover"></div>
+                                </a>
+                                <div class="card__info">
+                                    <span class="card__category"> 4 days</span>
+                                    <h3 class="card__title">Finland</h3>
+                                    <span class="card__by">In <a href="#" class="card__author"
+                                            title="author">Europe</a></span>
+                                </div>
+                            </article>
+                            <article class="card card--7" id="img7">
+                                <div class="card__info-hover">
+                                    <svg class="card__like" viewBox="0 0 24 24">
+                                        <path fill="#000000"
+                                            d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+                                    </svg>
+
+
+                                </div>
+                                <div class="card__img"></div>
+                                <a href="#" class="card_link">
+                                    <div class="card__img--hover"></div>
+                                </a>
+                                <div class="card__info">
+                                    <span class="card__category"> 6 days</span>
+                                    <h3 class="card__title">Japan</h3>
+                                    <span class="card__by">In <a href="#" class="card__author"
+                                            title="author">Asia</a></span>
+                                </div>
+                            </article>
+                            <article class="card card--8" id="img8">
+                                <div class="card__info-hover">
+                                    <svg class="card__like" viewBox="0 0 24 24">
+                                        <path fill="#000000"
+                                            d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+                                    </svg>
+
+
+                                </div>
+                                <div class="card__img"></div>
+                                <a href="#" class="card_link">
+                                    <div class="card__img--hover"></div>
+                                </a>
+                                <div class="card__info">
+                                    <span class="card__category"> 4 days</span>
+                                    <h3 class="card__title">London</h3>
+                                    <span class="card__by">In <a href="#" class="card__author"
+                                            title="author">England</a></span>
+                                </div>
+                            </article>
+                            <article class="card card--9" id="img9">
+                                <div class="card__info-hover">
+                                    <svg class="card__like" viewBox="0 0 24 24">
+                                        <path fill="#000000"
+                                            d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+                                    </svg>
+
+
+                                </div>
+                                <div class="card__img"></div>
+                                <a href="#" class="card_link">
+                                    <div class="card__img--hover"></div>
+                                </a>
+                                <div class="card__info">
+                                    <span class="card__category"> 12 days</span>
+                                    <h3 class="card__title">Australia</h3>
+                                    <span class="card__by">In <a href="#" class="card__author"
+                                            title="author">Australia</a></span>
+                                </div>
+                            </article>
+                            <article class="card card--10" id="img10">
+                                <div class="card__info-hover">
+                                    <svg class="card__like" viewBox="0 0 24 24">
+                                        <path fill="#000000"
+                                            d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+                                    </svg>
+
+
+                                </div>
+                                <div class="card__img"></div>
+                                <a href="#" class="card_link">
+                                    <div class="card__img--hover"></div>
+                                </a>
+                                <div class="card__info">
+                                    <span class="card__category"> 5 days</span>
+                                    <h3 class="card__title">Dubai</h3>
+                                    <span class="card__by">In <a href="#" class="card__author"
+                                            title="author">Asia</a></span>
+                                </div>
+                            </article>
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!-- faq section -->
+    <div class="rela-block our-plans-section" id="priceSection">
+        <h2 class="half-big-text has-border">FAQ</h2>
+
+        <div class="faq">
+
+            <div class="wrapper">
+
+                <div class="container">
+                    <div class="question">
+                        What is a custom tour and how does it work?
+                    </div>
+                    <div class="answercont">
+                        <div class="answer">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, debitis nobis ipsam quam quae
+                            dolore asperiores alias velit modi ut vitae in unde a veniam commodi molestiae dignissimos
+                            repellat soluta! Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro enim
+                            deserunt iste velit provident ad amet, est eligendi sequi laboriosam excepturi ullam,
+                            assumenda, aperiam impedit ut sit consequatur. Esse, molestias?<br><br>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="question">
+                        Can changes be made to the itinerary during a trip?
+                    </div>
+                    <div class="answercont">
+                        <div class="answer">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa sit fuga nisi exercitationem
+                            rem assumenda ad quisquam vel debitis perferendis minus, esse quae libero adipisci
+                            praesentium hic earum soluta ab! Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                            Itaque fuga asperiores possimus assumenda animi est corrupti, hic delectus quasi facere,
+                            eveniet qui placeat quam perspiciatis. Quos corrupti incidunt quibusdam neque!<br><br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="question">
+                        Who leads your tours?
+                    </div>
+                    <div class="answercont">
+                        <div class="answer">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, suscipit fugit possimus
+                            ullam est dicta quo magni ipsum aliquam odit, autem quibusdam similique necessitatibus
+                            consequuntur eaque quia, voluptatem esse aut.<br><br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="question">
+                        What is your booking, refund, and cancellation policy?
+                    </div>
+                    <div class="answercont">
+                        <div class="answer">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nobis accusamus maxime
+                            velit voluptatum amet atque tempore minima eos assumenda optio saepe architecto, ullam sit?
+                            Soluta fugiat ducimus voluptate quaerat. Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Suscipit minima sed culpa, nulla porro voluptatem quaerat ab tempora perferendis
+                            doloribus eius exercitationem est rerum modi neque! At enim natus repellendus. Lorem, ipsum
+                            dolor sit amet consectetur adipisicing elit. Corporis, reprehenderit quia architecto omnis
+                            vitae aliquam dolorem! Atque voluptas culpa ea consequuntur adipisci nisi. Accusantium in
+                            consectetur hic dolore delectus beatae? Lorem ipsum dolor, sit amet consectetur adipisicing
+                            elit. Vel odio modi consequuntur accusantium optio distinctio voluptatum qui, esse sint
+                            voluptatem libero dolorem tenetur dignissimos consequatur, omnis maxime aliquid, illo quasi?
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="question">
+                        When is the best time to visit Europe?
+                    </div>
+                    <div class="answercont">
+                        <div class="answer">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic ratione fugit autem ex
+                            adipisci iure quasi, voluptas dignissimos voluptatum. Non reiciendis vitae sequi quod
+                            dolores. Esse officiis iste facilis sint!<br><br>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const questions = document.querySelectorAll(".question");
+
+                questions.forEach((question) => {
+                    question.addEventListener("click", () => {
+                        // Close any currently active accordion
+                        const activeQuestion = document.querySelector(".question.active");
+                        if (activeQuestion && activeQuestion !== question) {
+                            activeQuestion.classList.remove("active");
+                            activeQuestion.nextElementSibling.style.maxHeight = null;
+                        }
+
+                        // Toggle the clicked accordion
+                        question.classList.toggle("active");
+                        const answer = question.nextElementSibling;
+                        if (question.classList.contains("active")) {
+                            answer.style.maxHeight = `${answer.scrollHeight}px`;
+                        } else {
+                            answer.style.maxHeight = null;
+                        }
+                    });
+                });
+            });
+
+        </script>
+    </div>
+
+    <!-- social buttons footer -->
+    <div class="rela-block contact-section" id="contactSection">
+        <h2 class="half-big-text has-border">Contact</h2>
+        <p>Send me your questions, comments, or suggestions!
+        </p>
+        <div class="orbitron black-orb">\\\///</div>
+        <div class="rela-block contact-form-container">
+            <div class="contact-half contact-left">
+                <h2 class="small-header">Don't hesitate to contact us.</h2>
+                <p>If you'd like to work with me or you have a question or comment, you can contact me using the form
+                    below. You can also find more info about me here.
+
+                    Sometimes I'm busy traveling, but I try to respond to any messages!</p>
+                <div class="rela-block left-quad-container">
+                    <div class="contact-quad">Kolkata<br>West Bengal<br>Pincode-700035</div>
+                    <div class="contact-quad">123-456-7890<br>987-654-3210</div>
+                    <div class="contact-quad">rajatasaha478@mail.com<br>phoenix.com</div>
+                    <div class="contact-quad">M-F: 8 AM - 3 PM<br>Sa: 8AM - 12PM<br>Su: Closed</div>
+                </div>
+                <div class="social-button facebook-button"></div>
+                <div class="social-button twitter-button"></div>
+                <div class="social-button instagram-button"></div>
+            </div>
+            <div class="contact-half contact-right">
+                <input type="text" placeholder="ENTER YOU NAME" class="contact-input" />
+                <input type="text" placeholder="ENTER YOUR EMAIL" class="contact-input" />
+                <input type="text" placeholder="PHONE NUMBER" class="contact-input" />
+                <textarea cols="40" rows="5" placeholder="ENTER YOUR MESSAGE"
+                    class="contact-input big-input"></textarea>
+                <h2 class="small-header submit-button">Submit</h2>
+            </div>
+        </div>
+    </div>
+    <div class="rela-block footer-section">
+        <h2 class="small-header top-link">Back to Top</h2>
+        <div class="rela-block social-buttons-container">
+            <div class="social-button facebook-button"></div>
+            <div class="social-button twitter-button"></div>
+            <div class="social-button instagram-button"></div>
+        </div>
+        <p>“I need six months of vacation, twice a year.” - Unknown<br>© Phoenix 2025</p>
+    </div>
+</body>
+</html>
